@@ -184,9 +184,8 @@ class Request(object):
     def content_md5(body):
         content = ''
         if body:
-            m = md5(body)
-            content = m.digest().encode("base64").rstrip('\n')
-
+            digest = md5(body.encode('ascii')).digest()
+            content = b64encode(digest).decode('ascii')
         return content
 
 
