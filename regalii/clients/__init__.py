@@ -74,7 +74,8 @@ class Request(object):
         uri = self.build_uri(self.params)
         params = ''
         if self.params:
-            params += '?{params}'.format(params=urllib.urlencode(self.params.items()))
+            params += '?{params}'.format(
+                params=urllib.parse.urlencode(self.params.items()))
 
         headers = self.build_header(self.endpoint + params)
         proxies = self.build_proxy()
@@ -138,7 +139,7 @@ class Request(object):
         protocol = 'https' if self.config.secure() else 'http'
         url = ''.join([protocol, '://', self.config.host, self.endpoint])
         if params:
-            url += '?{params}'.format(params=urllib.urlencode(params.items()))
+            url += '?{params}'.format(params=urllib.parse.urlencode(params.items()))
         return url
 
     def build_header(self, uri, body=''):
